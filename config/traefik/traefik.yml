@@ -1,0 +1,37 @@
+  
+api:
+  dashboard: true
+  insecure: true
+
+providers:
+  providersThrottleDuration: 10s
+  docker:
+    exposedByDefault: false
+  file:
+    filename: "/rules.yml"
+    watch: true
+
+log:
+  level: DEBUG
+  filePath: "/traefik.log"
+
+entryPoints:
+  websecure:
+    address: ":443"
+
+certificatesResolvers:
+  myresolver:
+    acme:
+      email: aarantes23@outlook.com
+      storage: /acme.json
+      dnsChallenge:         
+        provider: cloudflare
+        delayBeforeCheck: 0
+
+metrics:
+  prometheus:
+    buckets:
+      - 0.1
+      - 0.3
+      - 1.2
+      - 5.0
